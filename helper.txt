@@ -6,3 +6,8 @@ Criar lado do cliente
         -Renovar reserva
     
 Criar lado de Gerenciamento
+
+
+
+
+-- Reservas de Hoteis e Cabines(Casa no Campo)
