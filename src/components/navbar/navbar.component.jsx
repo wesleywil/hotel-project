@@ -1,6 +1,6 @@
 import React from "react";
 import {NavLink, useNavigate} from 'react-router-dom';
-
+import { Dropdown } from "flowbite-react";
 
 import Cabin from '../../assets/imgs/cabin.svg'
 
@@ -20,11 +20,21 @@ const NavBar = ()=>{
                 <a onClick={()=>history('/residences/cabins')} className="mr-5 text-violet-300  hover:text-violet-100">Cabins</a>
                 <a onClick={()=>history('/residences/hotels')} className="mr-5 text-violet-300 hover:text-violet-100">Hotels</a>
             </nav>
-            <button onClick={()=>history('/profile')} className="inline-flex items-center bg-violet-400 border-0 py-1 px-3 focus:outline-none hover:bg-violet-600 rounded text-base text-slate-800 hover:text-slate-200 mt-4 md:mt-0">Profile
+            {/* <button onClick={()=>history('/profile')} className="inline-flex items-center bg-violet-400 border-0 py-1 px-3 focus:outline-none hover:bg-violet-600 rounded text-base text-slate-800 hover:text-slate-200 mt-4 md:mt-0">Profile
                 <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">
                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                 </svg>
-            </button>
+            </button> */}
+            <div className="bg-violet-500 text-slate-100">
+                <Dropdown label='Profile' color="bg-violet-400">
+                    <Dropdown.Item>
+                        Logout
+                    </Dropdown.Item>
+                </Dropdown>
+            </div>
+
+
+            
         </div>
     </header>
     )
