@@ -18,8 +18,8 @@ const FormComponent = ()=>{
             <span className='ml-2'>Daily Rate</span>
             <input className='w-full rounded-lg' type='number' placeholder='Daily Rate'/>
             <span className="ml-2">Type</span>
-            <select class='w-full rounded-lg focus:border-violet-300'>
-                    <option selected>Select Residence Type</option>
+            <select className='w-full rounded-lg focus:border-violet-300' defaultValue={'1'}>
+                    <option disabled value="0">Select Residence Type</option>
                     <option value="1">Cabin</option>
                     <option value="2">Hotel</option>
             </select>

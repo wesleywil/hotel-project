@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const DetailsResidence = ({type})=>{
+    const history = useNavigate();
 
     return(
         <section className="text-gray-600 body-font overflow-hidden">
@@ -31,7 +33,7 @@ const DetailsResidence = ({type})=>{
                 </div>
                 <div className="flex">
                 <span className="title-font font-medium text-2xl text-violet-400">$58.00</span>
-                <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>
+                <button onClick={()=>history('/payment')} className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>
                 </div>
             </div>
             <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
