@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-+osvcfov84%+u%0+q!sxh1at18ncq0syq3xq$+s19a1#vz#+&q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Local Apps
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -119,7 +122,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+STATIC_ROOT = 'static_root'
+
+MEDIA_URL = '/images/'
+
+MEDIA_ROOT = BASE_DIR / 'static'/'images'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'accounts.User'
