@@ -28,9 +28,9 @@ class Room(models.Model):
         COUPLE = 'Couple Bed'
     
     room_bed = models.CharField(max_length=10, choices=Room_bed.choices)
-    daily_price = models.CharField(max_length=10)
+    daily_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     vip = models.BooleanField(default = False)
-    extra_price = models.CharField(max_length=10, blank=True, null=True)
+    extra_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=0.00)
 
     def __str__(self):
         return f'{self.residence.location} {self.room_id} '
