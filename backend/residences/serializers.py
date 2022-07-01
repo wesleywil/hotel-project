@@ -2,13 +2,14 @@ from rest_framework import serializers
 
 from .models import Residence, Room
 
+class RoomsSerializers(serializers.ModelSerializer):
+    residence = serializers.StringRelatedField() # __str__
+    class Meta:
+        model = Room
+        fields = ('id', 'residence', 'decription', 'room_id','room_bed', 'daily_price', 'vip', 'extra_price')
+
 class ResidencesSerializers(serializers.ModelSerializer):
+    rooms = RoomsSerializers(many=True, read_only=True)
     class Meta:
         model = Residence
         fields = ('id','title', 'location', 'address', 'room_quantity','type', 'rooms')
-
-class RoomsSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = Room
-        fields = ('id', 'residence', 'description', 'room_id','room_bed', 'daily_price', 'vip', 'extra_price')
-        
