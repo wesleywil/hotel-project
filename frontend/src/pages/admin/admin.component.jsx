@@ -16,7 +16,7 @@ const AdminPage = ()=>{
                 <ul className='text-center'>
                     <li 
                         className='bg-violet-400 text-slate-800 hover:text-slate-100 hover:bg-violet-500 font-semibold text-xl mb-2 '
-                        onClick={()=>setOptions(<ListPostsCompomponent/>)}
+                        onClick={()=>setOptions(<ListPostsCompomponent setnewOption={setOptions}/>)}
                     >
                         List Posts
                     </li>
@@ -26,18 +26,7 @@ const AdminPage = ()=>{
                     >
                         New Post
                     </li>
-                    <li 
-                        className='bg-violet-400 text-slate-800 hover:text-slate-100 hover:bg-violet-500 font-semibold text-xl mb-2 '
-                        onClick={()=>setOptions(<EditPostComponent/>)}
-                    >
-                        Edit Post
-                    </li>
-                    <li 
-                        className='bg-violet-400 text-slate-800 hover:text-slate-100 hover:bg-violet-500 font-semibold text-xl mb-2 '
-                        onClick={()=>setOptions(<DeletePostComponent/>)}
-                    >
-                        Remove Post
-                    </li>
+                   
                 </ul>
             </div>
             <div className='grow w-1/2 bg-violet-400'>

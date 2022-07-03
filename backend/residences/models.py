@@ -1,8 +1,11 @@
 from django.db import models
 
+from PIL import Image
 
 class Residence(models.Model):
     title = models.CharField(max_length=250, null=False, blank=False)
+    main_picture = models.ImageField(upload_to='residences/', default='residences/default.svg')
+    description = models.TextField(max_length=300, default='default description, you should edit this')
     location = models.CharField(max_length=250, null=False, blank=False)
     address = models.CharField(max_length=500, null=False, blank=False)
     room_quantity = models.IntegerField(default=0, null=False, blank=False)
@@ -16,6 +19,14 @@ class Residence(models.Model):
 
     def __str__(self):
         return self.location
+
+    def save(self, *args, **kwargs):
+        super().save()
+        img = Image.open(self.main_picture.path)
+        if img.height > 500 or img.width > 1100:
+            new_img = (500,1100)
+            img.thumbnail(new_img)
+            img.save(self.main_picture.path)
 
 class Room(models.Model):
     residence = models.ForeignKey(Residence, on_delete=models.CASCADE, related_name='room_from_residence')

@@ -1,6 +1,7 @@
 {
   "name": "hotel-project",
   "private": true,
+  "proxy": "http://localhost:8000",
   "version": "0.0.0",
   "scripts": {
     "dev": "CHOKIDAR_USEPOLLING=true vite",

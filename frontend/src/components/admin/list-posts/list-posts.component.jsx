@@ -1,24 +1,40 @@
-import React from "react";
+import React,{ useState, useEffect } from "react";
+import axios from 'axios';
 
 import CardPost from "../card-post/card-post.component";
 
-const ListPostsCompomponent = ()=>{
+const ListPostsCompomponent = ({setnewOption})=>{
+    const [posts, setPosts] = useState([]);
+
+    const getPosts = async()=>{
+        const res = await axios.get('http://localhost:8000/api/main/residences/')
+        console.log(res.data)
+        setPosts(res.data)
+    }
+
+    useEffect(()=>{
+        getPosts();
+
+    },[])
 
     return(
         <div>
             <h1 className='text-center bg-slate-900 text-violet-200 text-3xl mb-2'>List Posts</h1>
-            <div className='flex flex-row'>
-                <div className='basis-1/3 p-2'>
-                    <CardPost/>
-                </div>
-                <div  className='basis-1/3 p-2'>
-                    <CardPost/>
-                    <CardPost/>
-                </div>
-                <div  className='basis-1/3 p-2'>
-                    <CardPost/>
-                </div>
-            </div>
+            {
+                (
+                posts.length ?
+                    <div className='grid lg:grid-cols-3 md:grid-cols-1 gap-2 p-2'>
+                        {
+                            posts.map((item)=>(
+                                <CardPost key={item.id} info={item} newOption={setnewOption}/>
+                            ))
+                        }
+                    </div>
+                :
+                    <h1 className='text-6xl text-violet-300 text-center p-2'>NO POSTS YET</h1>
+                )
+            }
+
         </div>
     )
 }

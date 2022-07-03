@@ -12,4 +12,4 @@ class ResidencesSerializers(serializers.ModelSerializer):
     rooms = RoomsSerializers(many=True, read_only=True)
     class Meta:
         model = Residence
-        fields = ('id','title', 'location', 'address', 'room_quantity','type', 'rooms')
+        fields = ('id','title', 'main_picture', 'description', 'location', 'address', 'room_quantity','type', 'rooms')

@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.http import Http404
 from rest_framework import status, permissions
 from rest_framework.response import Response
@@ -14,11 +15,11 @@ class ResidenceViewSet(APIView):
     permissions_classes = [permissions.IsAuthenticatedOrReadOnly,]
     def get(self, request, format=None):
         queryset = Residence.objects.all().order_by('-title')
-        serializer = ResidencesSerializers(queryset, many=True)
+        serializer = ResidencesSerializers(queryset, many=True, context={"request":request})
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ResidencesSerializers(data=request.data)
+        serializer = ResidencesSerializers(data=request.data, context={"request":request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
@@ -36,7 +37,7 @@ class ResidenceDetailsView(APIView):
     
     def get(self, request, pk, format=None):
         residence = self.get_object(pk)
-        serializer = ResidencesSerializers(residence)
+        serializer = ResidencesSerializers(residence, context={"request": request})
         return Response(serializer.data)
     
     def put(self, request, pk, format = None):
