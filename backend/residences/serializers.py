@@ -13,3 +13,7 @@ class ResidencesSerializers(serializers.ModelSerializer):
     class Meta:
         model = Residence
         fields = ('id','title', 'main_picture', 'description', 'location', 'address', 'room_quantity','type', 'rooms')
+
+class ErrorSerializer(serializers.Serializer):
+    message = serializers.CharField(max_length=100)
+    status = serializers.CharField(max_length=300)

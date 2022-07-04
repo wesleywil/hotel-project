@@ -135,3 +135,18 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# DO NOT IGNORE DEFAULT PROFILE PICTURE AND DEFAULT HOUSE
+
+!/
+/*
+!/static/
+/static/*
+!/static/images/
+/static/images/*
+!/static/images/profiles/
+/static/images/profiles/*
+!/static/images/profiles/default_profile.jpg
+!/static/images/residences/
+/static/images/residences/*
+!/static/images/residences/default_house.png

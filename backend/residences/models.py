@@ -4,7 +4,7 @@ from PIL import Image
 
 class Residence(models.Model):
     title = models.CharField(max_length=250, null=False, blank=False)
-    main_picture = models.ImageField(upload_to='residences/', default='residences/default.svg')
+    main_picture = models.ImageField(upload_to='residences/', default='residences/default_house.png')
     description = models.TextField(max_length=300, default='default description, you should edit this')
     location = models.CharField(max_length=250, null=False, blank=False)
     address = models.CharField(max_length=500, null=False, blank=False)
@@ -12,10 +12,10 @@ class Residence(models.Model):
 
     class Type(models.TextChoices):
         HOTEL = 'Hotel'
-        READ = 'Cabin'
+        CABIN = 'Cabin'
     
     type = models.CharField(max_length=6, choices=Type.choices)
-    rooms = models.ManyToManyField('Room', related_name='rooms_in_residence')
+    rooms = models.ManyToManyField('Room', related_name='rooms_in_residence', blank=True)
 
     def __str__(self):
         return self.location

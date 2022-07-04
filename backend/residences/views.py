@@ -1,13 +1,17 @@
-from multiprocessing import context
 from django.http import Http404
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.renderers import JSONRenderer
+
+
+import random
 
 from .models import Residence, Room
 from .serializers import (
     ResidencesSerializers,
     RoomsSerializers,
+    ErrorSerializer,
 )
 
 # List Residences and Create new Residence Register
@@ -52,6 +56,44 @@ class ResidenceDetailsView(APIView):
         residence = self.get_object(pk)
         residence.delete()
         return Response(status = status.HTTP_204_NO_CONTENT)
+
+# Search Residences by Location
+class ResidenceByLocationView(APIView):
+    permissions = [permissions.AllowAny]
+
+    def get(self,request, location, format=None):
+        residence = Residence.objects.filter(location__icontains = location)
+        if not residence:
+            content ={
+                "message":"Nothing was found",
+                "status":status.HTTP_404_NOT_FOUND
+            }
+            serializer = ErrorSerializer(content)
+            return Response(serializer.data)
+        else:
+            serializer = ResidencesSerializers(residence, context = {"request": request}, many=True)
+            return Response(serializer.data)
+
+# 3 Random Residences
+class ResidenceByRandom3View(APIView):
+    permissions = [permissions.AllowAny]
+
+    def get(self, request, format=None):
+        residences_list = list(Residence.objects.all())
+        print(f'RESIDENCE LIST COUNT {len(residences_list)}')
+        if len(residences_list) >= 3:
+            residences = random.sample(residences_list, 3)
+            print(f'Residences Sample {residences}')
+            serializer = ResidencesSerializers(residences, context={"request": request}, many=True)
+            return Response(serializer.data)
+        else:
+            content = {
+                "message":"Not Enough Posts",
+                "status":status.HTTP_204_NO_CONTENT
+            }
+            serializer = ErrorSerializer(content)
+            return Response(serializer.data)
+        
 
 # List Rooms and Create new Room
 class RoomViewSet(APIView):
