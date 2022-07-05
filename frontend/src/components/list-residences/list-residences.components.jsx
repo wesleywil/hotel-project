@@ -19,7 +19,7 @@ const ListResidences = ({list})=>{
                     (
                     list.length ?
                         list.map((item)=>(
-                            <ResidenceCard key={item.id} residence={'hotel'}/>
+                            <ResidenceCard key={item.id} item={item}/>
                         ))
                     :
                         <h1 className="mx-auto text-gray-800 font-bold text-8xl text-center">EMPTY</h1>

@@ -6,15 +6,6 @@ import Cabin from '../../assets/imgs/cabin.svg';
 
 const Homepage = ()=>{
     const history = useNavigate();
-
-    const handleCabins = ()=>{
-        history('residences/cabins');
-    }
-
-    const handleHotels = ()=>{
-        history('residences/hotels');
-    }
-
     return(
         <div className='container mt-20 mx-auto p-24 flex flex-row border-2 border-violet-400 rounded-3xl    '>
             <div className='mx-auto p-4 bg-black basis-1/2 flex '>
@@ -25,8 +16,7 @@ const Homepage = ()=>{
                         The Best hotels you find here, what are you waiting for make your reservation and relax in our beautiful places.
                     </p>
                     <div>
-                        <button onClick={()=>handleHotels()} className='text-slate-200  hover:text-slate-300 font-bold text-xl bg-violet-500 border-4 border-violet-500 hover:border-violet-600  hover:bg-violet-600 p-2 rounded-xl mx-2'>Hotels</button>
-                        <button onClick={()=>handleCabins()} className='text-slate-200 hover:text-slate-300 font-bold text-xl p-2 border-4 border-violet-500 hover:border-violet-600 rounded-xl mx-2'>Cabins</button>
+                        <button onClick={()=>history('/residences')} className='text-slate-200  hover:text-slate-300 font-bold text-xl bg-violet-500 border-4 border-violet-500 hover:border-violet-600  hover:bg-violet-600 p-2 rounded-xl mx-2'>Residences</button>
                     </div>
                 </div>
             </div>

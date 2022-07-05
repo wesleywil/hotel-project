@@ -17,14 +17,8 @@ const NavBar = ()=>{
                 <span className="ml-3 text-xl text-violet-300 hover:text-violet-200">Klint-Kent</span>
             </NavLink>
             <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                <a onClick={()=>history('/residences/cabins')} className="mr-5 text-violet-300  hover:text-violet-100">Cabins</a>
-                <a onClick={()=>history('/residences/hotels')} className="mr-5 text-violet-300 hover:text-violet-100">Hotels</a>
+                <a onClick={()=>history('/residences/')} className="mr-5 text-violet-300  hover:text-violet-100">Residences</a>
             </nav>
-            {/* <button onClick={()=>history('/profile')} className="inline-flex items-center bg-violet-400 border-0 py-1 px-3 focus:outline-none hover:bg-violet-600 rounded text-base text-slate-800 hover:text-slate-200 mt-4 md:mt-0">Profile
-                <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                </svg>
-            </button> */}
             <div className="bg-violet-500 text-slate-100">
                 <Dropdown label='Profile' color="bg-violet-400">
                     <Dropdown.Item>

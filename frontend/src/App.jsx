@@ -26,14 +26,9 @@ function App() {
       <Routes>
         <Route exact='true' path='/admin' element={<AdminPage/>}/>
         <Route exact='true' path='*' element={<Homepage/>}/>
-        <Route path='residences'>
-          <Route exact='true' path='all' element={<Residences type={'all'}/>}/>
-          <Route exact='true' path='cabins' element={<Residences type={'cabins'}/>}/>
-          <Route exact='true' path='hotels' element={<Residences type={'hotels'}/>}/>
-        </Route>
+        <Route path='residences' element={<Residences/>} />
         <Route  path='details'>
-          <Route exact='true' path='cabins' element={<DetailsResidence type={'cabins'}/>}/>
-          <Route exact='true' path='hotels' element={<DetailsResidence type={'hotels'}/>}/>
+          <Route exact='true' path=':id' element={<DetailsResidence/>}/>
         </Route>
         <Route exact='true' path='profile' element={<Profile/>}/>
         <Route exact='true' path='signin' element={<SignIn/>}/>
