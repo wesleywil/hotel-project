@@ -9,6 +9,7 @@ class Residence(models.Model):
     location = models.CharField(max_length=250, null=False, blank=False)
     address = models.CharField(max_length=500, null=False, blank=False)
     room_quantity = models.IntegerField(default=0, null=False, blank=False)
+    vacancy = models.BooleanField(default=True)
 
     class Type(models.TextChoices):
         HOTEL = 'Hotel'
