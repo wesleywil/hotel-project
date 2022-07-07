@@ -7,7 +7,8 @@ from .models import User, Booking
 
 from .serializers import (
     UserSerializer,
-    BookingSerializer
+    BookingSerializer,
+    SimpleBookingSerializer,
 )
 
 # List Users and Create New User
@@ -62,7 +63,7 @@ class BookingViewSet(APIView):
         return Response(serializer.data)
     
     def post(self, request, format=None):
-        serializer = BookingSerializer(data=request.data)
+        serializer = SimpleBookingSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)

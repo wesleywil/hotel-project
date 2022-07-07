@@ -11,6 +11,11 @@ class BookingSerializer(serializers.ModelSerializer):
         model = Booking
         fields = ('id', 'user', 'room', 'start_booking', 'end_booking', 'days', 'total', 'open')
 
+class SimpleBookingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ('id','user','room','start_booking', 'end_booking', 'days', 'total', 'open')
+
 class UserSerializer(serializers.ModelSerializer):
     list_booking = BookingSerializer(many=True, read_only=True)
     class Meta:

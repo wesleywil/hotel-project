@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Homepage from './pages/homepage/homepage.component';
 import AdminPage from './pages/admin/admin.component';
 import Residences from './pages/residences/residences.components';
-import DetailsResidence from './pages/details-residences/details-residences.component';
+import Details from './pages/details/details.component';
 import Profile from './pages/profile/profile.component';
 import SignIn from './pages/signin/signin.component';
 import SignUp from './pages/signup/signup.component';
@@ -28,7 +28,7 @@ function App() {
         <Route exact='true' path='*' element={<Homepage/>}/>
         <Route path='residences' element={<Residences/>} />
         <Route  path='details'>
-          <Route exact='true' path=':id' element={<DetailsResidence/>}/>
+          <Route exact='true' path=':id' element={<Details/>}/>
         </Route>
         <Route exact='true' path='profile' element={<Profile/>}/>
         <Route exact='true' path='signin' element={<SignIn/>}/>
