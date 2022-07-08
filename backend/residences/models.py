@@ -46,3 +46,8 @@ class Room(models.Model):
 
     def __str__(self):
         return f'{self.residence.location} {self.room_id} '
+
+class RoomImages(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, null=True, blank=True)
+    room_image = models.ImageField(upload_to='residences/', default='residences/default_bedroom.png')
+    alt = models.CharField(max_length=50, null=True, blank=True)

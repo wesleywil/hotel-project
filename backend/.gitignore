@@ -150,3 +150,4 @@ GitHub.sublime-settings
 !/static/images/residences/
 /static/images/residences/*
 !/static/images/residences/default_house.png
+!/static/images/residences/default_bedroom.png
