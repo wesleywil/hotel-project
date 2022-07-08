@@ -6,7 +6,7 @@ class RoomsSerializers(serializers.ModelSerializer):
     residence = serializers.StringRelatedField() # __str__
     class Meta:
         model = Room
-        fields = ('id', 'residence', 'decription', 'room_id','room_bed', 'daily_price', 'vip', 'extra_price')
+        fields = ('id', 'residence', 'decription', 'room_id','room_bed', 'daily_price', 'vip', 'extra_price','vacancy')
 
 class ResidencesSerializers(serializers.ModelSerializer):
     rooms = RoomsSerializers(many=True, read_only=True)

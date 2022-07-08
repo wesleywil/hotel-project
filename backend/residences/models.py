@@ -33,6 +33,7 @@ class Room(models.Model):
     residence = models.ForeignKey(Residence, on_delete=models.CASCADE, related_name='room_from_residence')
     decription = models.TextField()
     room_id = models.CharField(max_length=10, null=False, blank=False)
+    vacancy = models.BooleanField(default=True)
 
     class Room_bed(models.TextChoices):
         SINGLE = 'Single Bed'

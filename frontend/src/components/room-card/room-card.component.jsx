@@ -42,10 +42,14 @@ const RoomCard = ({item})=>{
 
     }
 
+    const filterVacancy = (i)=>{
+        return i.vacancy === true;
+    }
+
     return(
         <>
             {
-                item.rooms.map((item)=>(
+                item.rooms.filter(filterVacancy).map((item)=>(
                     <div 
                         key={item.id} 
                         className="p-2 rounded-xl flex flex-col w-11/12 bg-violet-500 text-slate-100"

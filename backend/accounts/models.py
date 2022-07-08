@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.db.models.signals import pre_save
 from decimal import Decimal
 from datetime import timedelta,date
@@ -48,21 +49,34 @@ class Booking(models.Model):
                 self.save()
         return totals
     
-    def handle_room_quantity(self, save = False):
-        print(f'Before: {self.room.residence.room_quantity}')
-        room_quantity = self.room.residence.room_quantity
-        total_quantity = room_quantity - 1
-        print(f'After Sub no saved ==> {total_quantity}')
-        if total_quantity <= -1:
-            residence = Residence.objects.get(id=self.room.residence.id)
-            residence.vacancy = False
-            residence.save()
-            raise Exception("No more rooms to book!")
+    def handle_pre_save_residence_vacancy(self, save = False):
+        residence = Residence.objects.get(id = self.room.residence.id)
+        if not residence.vacancy:
+            print('NO MORE ROOMS')
+            raise Exception('Closed to new Bookings')
         else:
-            residence = Residence.objects.get(id=self.room.residence.id)
-            residence.room_quantity = total_quantity
-            residence.save()
-    
+            xp = 0
+            for rooms in residence.rooms.all():
+                if rooms.vacancy == True:
+                    xp +=1
+                else:
+                    if xp >=1:
+                        print('Still Open')
+                    else:
+                       raise ValidationError(('No More Rooms'))
+            # if Room.objects.filter(vacancy = True).exists():
+            #     print('There are more rooms to choose!')
+            # else:
+            #     residence.vacancy = False
+            #     residence.save()
+
+    # def handle_post_save_residence_vacancy(self, save = False):
+    #     if Room.objects.filter(vacancy = True).exists():
+    #         print('yes')
+    #     else:
+    #         self.delete()
+
+
     def handle_end_booking(self, save = False):
         self.end_booking = date.today() + timedelta(days = self.days)
         print(f'END BOOKING ==> {self.end_booking}')
@@ -73,13 +87,17 @@ class Booking(models.Model):
 def booking_pre_save(sender, instance, *args, **kwargs):
     instance.calculate_total(save = False)
     instance.handle_end_booking(save = False)
-    instance.handle_room_quantity(save = False)
+    instance.handle_pre_save_residence_vacancy(save = False)
+
+# def booking_post_save(sender, instance, *args, **kwargs):
+#     instance.handle_post_save_residence_vacancy(save = False)
     
 pre_save.connect(booking_pre_save, sender = Booking)
+# post_save.connect(booking_post_save, sender = Booking)
 
 
 
 
 
 
-
+ 

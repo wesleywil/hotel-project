@@ -1,7 +1,9 @@
 import React, { useState,useEffect } from "react";
+import { useNavigate} from 'react-router-dom';
 import axios from "axios";
 
 const Payment = ()=>{
+    const history = useNavigate();
     const [qtd, setQtd] = useState(1);
     let obj = JSON.parse(localStorage.getItem('roomObj'))
     const [finalPrice, setFinalPrice] = useState(0.00);
@@ -37,6 +39,22 @@ const Payment = ()=>{
 
         axios.post('http://localhost:8000/api/accounts/bookings/',booking).then((res)=>{
             console.log('POSTING --> ',res)
+            axios.get(`http://localhost:8000/api/main/rooms/${obj.id}`).then((res)=>{
+                axios.put(`http://localhost:8000/api/main/rooms/${obj.id}`,{
+                    residence:res.data.residence,
+                    decription:res.data.decription,
+                    room_id:res.data.room_id,
+                    daily_price:res.data.daily_price,
+                    room_bed:res.data.room_bed,
+                    vip:res.data.vip,
+                    extra_price:res.data.extra_price,
+                    vacancy:false
+                }).then(()=>{
+                    console.log('Updated Successfully!')
+                    localStorage.removeItem('roomObj')
+                    history('/residences');
+                })
+            })
         })
 
         console.log('BOOKING ORDER==> ', booking);
