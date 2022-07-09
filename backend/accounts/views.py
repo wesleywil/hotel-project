@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import User, Booking
+from residences.models import Residence
 
 from .serializers import (
     UserSerializer,
@@ -69,6 +70,9 @@ class BookingViewSet(APIView):
             user = User.objects.get(pk = request.data['user'])
             user.list_booking.add(serializer.data['id'])
             return Response(serializer.data, status = status.HTTP_201_CREATED)
+        residence = Residence.objects.get(rooms__id = request.data['room'])
+        residence.vacancy = False
+        residence.save()
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 # Room Details, Update Room and Delete Room

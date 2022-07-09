@@ -1,10 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.core.exceptions import ValidationError
 from django.db.models.signals import pre_save
 from decimal import Decimal
 from datetime import timedelta,date
-
+from rest_framework.serializers import ValidationError
 from residences.models import Room, Residence
  
 
@@ -53,30 +52,8 @@ class Booking(models.Model):
         residence = Residence.objects.get(id = self.room.residence.id)
         if not residence.vacancy:
             print('NO MORE ROOMS')
-            raise Exception('Closed to new Bookings')
-        else:
-            xp = 0
-            for rooms in residence.rooms.all():
-                if rooms.vacancy == True:
-                    xp +=1
-                else:
-                    if xp >=1:
-                        print('Still Open')
-                    else:
-                       raise ValidationError(('No More Rooms'))
-            # if Room.objects.filter(vacancy = True).exists():
-            #     print('There are more rooms to choose!')
-            # else:
-            #     residence.vacancy = False
-            #     residence.save()
-
-    # def handle_post_save_residence_vacancy(self, save = False):
-    #     if Room.objects.filter(vacancy = True).exists():
-    #         print('yes')
-    #     else:
-    #         self.delete()
-
-
+            raise ValidationError('Closed to new Bookings')
+    
     def handle_end_booking(self, save = False):
         self.end_booking = date.today() + timedelta(days = self.days)
         print(f'END BOOKING ==> {self.end_booking}')
@@ -89,11 +66,7 @@ def booking_pre_save(sender, instance, *args, **kwargs):
     instance.handle_end_booking(save = False)
     instance.handle_pre_save_residence_vacancy(save = False)
 
-# def booking_post_save(sender, instance, *args, **kwargs):
-#     instance.handle_post_save_residence_vacancy(save = False)
-    
 pre_save.connect(booking_pre_save, sender = Booking)
-# post_save.connect(booking_post_save, sender = Booking)
 
 
 

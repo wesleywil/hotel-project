@@ -1,6 +1,8 @@
 from rest_framework import serializers
+from rest_framework.serializers import ValidationError
 
 from .models import User, Booking
+from residences.models import Room,Residence
 from residences.serializers import RoomsSerializers
 
 
@@ -15,6 +17,14 @@ class SimpleBookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = ('id','user','room','start_booking', 'end_booking', 'days', 'total', 'open')
+    
+    def validate(self, data):
+        # residence = Residence.objects.get(rooms__id = data['room'])
+        if Room.objects.filter(vacancy = True).exists():
+            return data
+        else:
+            raise ValidationError('No More Rooms')
+
 
 class UserSerializer(serializers.ModelSerializer):
     list_booking = BookingSerializer(many=True, read_only=True)
