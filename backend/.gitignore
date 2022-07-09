@@ -138,8 +138,8 @@ GitHub.sublime-settings
 
 # DO NOT IGNORE DEFAULT PROFILE PICTURE AND DEFAULT HOUSE
 
-!/
-/*
+accounts/migrations/*
+residences/migrations/*
 !/static/
 /static/*
 !/static/images/

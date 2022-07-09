@@ -3,6 +3,8 @@ from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+
+from .custom_validation import validate_date
 from .models import User, Booking
 from residences.models import Residence
 
@@ -60,6 +62,8 @@ class BookingViewSet(APIView):
     permissions = [permissions.IsAuthenticatedOrReadOnly,]
     def get(self, request, format=None):
         queryset = Booking.objects.all()
+        for bks in queryset:
+            validate_date(bks)
         serializer = BookingSerializer(queryset, many=True)
         return Response(serializer.data)
     
